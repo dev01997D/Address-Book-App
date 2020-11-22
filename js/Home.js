@@ -1,4 +1,7 @@
+let contactDetailsList;
 window.addEventListener('DOMContentLoaded', (event) => {
+    contactDetailsList = getContactDetailsFromLocalStorage();
+    document.querySelector(".contact-count").textContent = contactDetailsList.length;
     createInnerHtml();
 });
 
@@ -6,8 +9,7 @@ const createInnerHtml = () => {
     const headerHtml = "<th>Fullname</th><th>Address</th><th>City</th>"
         + "<th>State</th><th>Zip Code</th><th>Phone Number</th>";
     let innerHtml = `${headerHtml}`;
-    let addressBookList = createContactsJSON();
-    for (const contact of addressBookList) {
+    for (const contact of contactDetailsList) {
         innerHtml = `${innerHtml}
       <tr>
       <td>${contact._name}</td>
@@ -49,3 +51,8 @@ const createContactsJSON = () => {
     ];
     return contactList;
 }
+
+const getContactDetailsFromLocalStorage = () => {
+    return localStorage.getItem('ContactList')?
+                                JSON.parse(localStorage.getItem('ContactList')):[];
+  }

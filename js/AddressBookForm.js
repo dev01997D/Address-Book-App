@@ -23,6 +23,8 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 errorField.textContent = "Invalid entry in the column";
         });
     }
+
+    checkForUpdate();
 });
 
 const save = () => {
@@ -79,4 +81,23 @@ const createAndUpdateStorage = ()=>{
 
 const cancel = () => {
     window.location.replace(site_properties.home_page);
+}
+
+//If update is clicked, redirect to page
+const checkForUpdate = () =>{
+    const contactJSON = localStorage.getItem('editEmp');
+    isUpdate = contactJSON ? true :false;
+    if(!isUpdate) return;
+    contactObj = JSON.parse(contactJSON);
+    setForm();
+}
+
+//On clicking update, populate all the details alredy filled there
+const setForm = () =>{
+    document.querySelector('#name').value = contactObj._name;
+    document.querySelector('#phone').value = contactObj._phone;
+    document.querySelector('#address').value= contactObj._address;
+    document.querySelector('#city').value = contactObj._city;
+    document.querySelector('#state').value = contactObj._state;
+    document.querySelector('#zip').value = contactObj._zip;
 }

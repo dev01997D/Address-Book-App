@@ -1,4 +1,10 @@
 class Contact {
+    get id() {
+        return this._id;
+    }
+    set id(id) {
+        this._id = id;
+    }
     get name() {
         return this._name;
     }
@@ -39,7 +45,7 @@ class Contact {
         this._zip = zip;
     }
     toString() {
-        return "Name: " + this.name + ", Address: " + this.address + ", City: " + this.city + ", State: "
+        return "id:" +this.id +", Name: " + this.name + ", Address: " + this.address + ", City: " + this.city + ", State: "
             + this.state + ", Zip: " + this.zip + ", Phone: " + this.phone;
     }
 }

@@ -51,6 +51,6 @@ const remove = (node)=>{
 const update = (node) => {
     let contact = contactDetailsList.find(contactObj => contactObj._id == node.id);
     if(!contact) return;
-    localStorage.setItem('editEmp',JSON.stringify(contact))
+    localStorage.setItem('editContact',JSON.stringify(contact))
     window.location.replace(site_properties.add_contact_page);
   }

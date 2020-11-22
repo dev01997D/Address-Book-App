@@ -3,9 +3,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
     contactDetailsList = getContactDetailsFromLocalStorage();
     document.querySelector(".contact-count").textContent = contactDetailsList.length;
     createInnerHtml();
+    // localStorage.removeItem('editContact');
 });
 
 const createInnerHtml = () => {
+    if (contactDetailsList.length == 0) return;
     const headerHtml = "<th>Fullname</th><th>Address</th><th>City</th>"
         + "<th>State</th><th>Zip Code</th><th>Phone Number</th>";
     let innerHtml = `${headerHtml}`;
@@ -19,9 +21,9 @@ const createInnerHtml = () => {
       <td>${contact._zip}</td>
       <td>${contact._phone}</td>
       <td>
-          <img id="1" onclick="remove(this)" alt="delete"
+          <img id="${contact._id}" onclick="remove(this)" alt="delete"
               src="../assets/icons/delete-black-18dp.svg">
-          <img id="1" alt="edit" onclick="update(this)" 
+          <img id="${contact._id}" alt="edit" onclick="update(this)" 
               src="../assets/icons/create-black-18dp.svg">
       </td>
       </tr>
@@ -30,29 +32,18 @@ const createInnerHtml = () => {
     document.querySelector('#table-display').innerHTML = innerHtml;
 }
 
-const createContactsJSON = () => {
-    let contactList = [
-        {
-            _name: "Devnandan Kumar",
-            _address: "H.No-2033, Barkatha",
-            _city: "Hyderabad",
-            _state: "Telangana",
-            _zip: "506016",
-            _phone: "7870752948"
-        },
-        {
-            _name: "Shikha Pandey",
-            _address: "H.No-201, Hazaribagh",
-            _city: "Bangalore",
-            _state: "Karanataka",
-            _zip: "506004",
-            _phone: "9873987564"
-        }
-    ];
-    return contactList;
+const getContactDetailsFromLocalStorage = () => {
+    return localStorage.getItem('ContactList') ?
+        JSON.parse(localStorage.getItem('ContactList')) : [];
 }
 
-const getContactDetailsFromLocalStorage = () => {
-    return localStorage.getItem('ContactList')?
-                                JSON.parse(localStorage.getItem('ContactList')):[];
-  }
+const remove = (node)=>{
+    let contact = contactDetailsList.find(contactobj=>contactobj._id==node.id);
+    if(!contact) return;
+    const index = contactDetailsList.map(contactobj=>contactobj._id).indexOf(contact._id);
+    alert(JSON.stringify(contact));
+    contactDetailsList.splice(index,1);
+    localStorage.setItem('ContactList',JSON.stringify(contactDetailsList));
+    document.querySelector('.contact-count').textContent = contactDetailsList.length;
+    createInnerHtml();
+}

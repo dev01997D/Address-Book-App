@@ -35,17 +35,35 @@ const save = () => {
     alert(contactObj.toString());
 }
 
-const setContactObject = () => {
-    try {
+const resetForm = () => {
+    document.querySelector("#name").value = "";
+    document.querySelector('#phone').value = "";
+    document.querySelector('#address').value = "";
+    document.querySelector('#city').value = "";
+    document.querySelector('#state').value = "";
+    document.querySelector('#zip').value = "";
+}
+
+const setContactObject = ()=>{
+    try{
+        contactObj._id = createNewContactId();
         contactObj._name = document.querySelector('#name').value;
         contactObj._phone = document.querySelector('#phone').value;
         contactObj._address = document.querySelector('#address').value;
         contactObj._city = document.querySelector('#city').value;
         contactObj._state = document.querySelector('#state').value;
         contactObj._zip = document.querySelector('#zip').value;
-    } catch (e) {
+    }catch(e){
         alert("Please enter valid details!");
     }
+}
+
+//Generating contact id for all objects
+const createNewContactId = () => {
+    let empID = localStorage.getItem("ContactID");
+    empID = !empID ? 1 : (parseInt(empID) + 1).toString();
+    localStorage.setItem("ContactID", empID);
+    return empID;
 }
 
 const createAndUpdateStorage = ()=>{
@@ -53,12 +71,12 @@ const createAndUpdateStorage = ()=>{
     if(contactList){
         contactList.push(contactObj);
     }else{
-        contactList=[contactObj]
+        contactList=[contactObj];
     }
     alert(contactList.toString())
     localStorage.setItem("ContactList",JSON.stringify(contactList))
 }
 
-const cancel = ()=>{
+const cancel = () => {
     window.location.replace(site_properties.home_page);
 }

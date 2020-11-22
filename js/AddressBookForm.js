@@ -28,6 +28,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
 const save = () => {
     try {
         setContactObject();
+        createAndUpdateStorage();
     } catch (e) {
         return;
     }
@@ -45,4 +46,15 @@ const setContactObject = () => {
     } catch (e) {
         alert("Please enter valid details!");
     }
+}
+
+const createAndUpdateStorage = ()=>{
+    let contactList = JSON.parse(localStorage.getItem("ContactList"));
+    if(contactList){
+        contactList.push(contactObj);
+    }else{
+        contactList=[contactObj]
+    }
+    alert(contactList.toString())
+    localStorage.setItem("ContactList",JSON.stringify(contactList))
 }

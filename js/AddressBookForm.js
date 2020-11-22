@@ -58,3 +58,7 @@ const createAndUpdateStorage = ()=>{
     alert(contactList.toString())
     localStorage.setItem("ContactList",JSON.stringify(contactList))
 }
+
+const cancel = ()=>{
+    window.location.replace(site_properties.home_page);
+}

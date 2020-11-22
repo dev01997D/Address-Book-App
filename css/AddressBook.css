@@ -47,6 +47,13 @@ body {
     box-sizing: border-box;
 }
 
+.cross-img{
+    width: 40px;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    opacity: 1;
+    align-items:center
+}
+
 .form-content {
     min-height: calc(100%-80px);
     background-color: #f7f7f7;

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="../css/AddressBook.css">
     <title>Address Book Form</title>
 </head>
+
 <body>
     <header class="header-content header">
         <div class="logo-content">
@@ -17,5 +19,16 @@
             </div>
         </div>
     </header>
+    <div id="formId" class="form-content">
+        <form class="form" action="#" onsubmit="save()">
+            <div class="form-head">PERSON ADDRESS FORM</div>
+            <div class="column-content">
+                <label class="label text" for="name">Full Name<br></label>
+                <input class="input" type="text" id="name" name="name" placeholder="Your name.." required>
+                <error-output class="text-error" for="text"></error-output>
+            </div>
+        </form>
+    </div>
 </body>
+
 </html>

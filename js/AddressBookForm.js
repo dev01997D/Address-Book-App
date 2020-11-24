@@ -1,4 +1,4 @@
-let contactObj = new Contact();
+let contactObj ={};
 let isUpdate = false;
 window.addEventListener("DOMContentLoaded", (event) => {
     const name = document.querySelector('#name');
@@ -32,7 +32,8 @@ const save = (event) => {
     event.preventDefault();
     event.stopPropagation();
     try {
-        // localStorage.clear();
+        localStorage.clear();
+        setContactObject();
         createAndUpdateStorage();
         resetForm();
         window.location.replace(site_properties.home_page);
@@ -44,30 +45,40 @@ const save = (event) => {
 
 const createAndUpdateStorage = () => {
     let contactList = JSON.parse(localStorage.getItem("ContactList"));
+    if(contactList==null){
+        contactList=[];
+    }
     if (contactList) {
         let contactData = contactList.find(contact => contact._id == contactObj._id);
         if (!contactData) {
-            setContactObject();
-            contactList.push(contactObj);
+            contactList.push(createContact());
         } else {
             const index = contactList.map(contact => contact._id).indexOf(contactData._id);
             contactList.splice(index, 1, createContact(contactData._id));
         }
     } else {
-        setContactObject();
-        contactList = [contactObj];
+        contactList = [createContact()];
     }
-    alert(contactObj.toString())
     localStorage.setItem("ContactList", JSON.stringify(contactList));
 }
 
 //When contact available set same object
 const createContact = (id) => {
-    let contact = new Contact();
-    if (!id) contact.id = createNewContactId();
-    else contact.id = id;
-    setContactObject(contactObj);
-    return contactObj;
+    let contactData = new Contact();
+    if (!id) contactData.id = createNewContactId();
+    else contactData.id = id;
+    setContactData(contactData);
+    return contactData;
+}
+
+//Setting the same Contact for updation
+const setContactData=(contactData) =>{
+    contactData._name = document.querySelector('#name').value;
+    contactData._phone = document.querySelector('#phone').value;
+    contactData._address = document.querySelector('#address').value;
+    contactData._city = document.querySelector('#city').value;
+    contactData._state = document.querySelector('#state').value;
+    contactData._zip = document.querySelector('#zip').value;
 }
 
 //Generating contact id for all objects
@@ -80,7 +91,7 @@ const createNewContactId = () => {
 
 const setContactObject = () => {
     try {
-        contactObj._id = createNewContactId();
+        // contactObj._id = createNewContactId();
         contactObj._name = document.querySelector('#name').value;
         contactObj._phone = document.querySelector('#phone').value;
         contactObj._address = document.querySelector('#address').value;
